@@ -46,6 +46,12 @@ table { border-collapse: collapse; margin-left: auto ;
 
                  }
 
+                 input:hover[type="inputkiller"]{
+                     /*background-color: #7f1b19;*/
+                     background-color: #fdd0dc;
+
+                 }
+
         .heading{
             text-align: center;
             /*display: inline*/

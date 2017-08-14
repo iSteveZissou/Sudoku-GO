@@ -25,6 +25,8 @@ type CellID struct {
 	Col int
 }
 
+var n int
+
 var f Solver.NewDataStruct
 
 func main() {

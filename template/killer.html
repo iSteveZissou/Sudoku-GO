@@ -16,7 +16,30 @@
          <body onload="addArrays()"> 
             <!-- <body> -->
 
-        <div class="heading"><img src="/static/images/SO_DO_KUGO_KILLER.png" /></div>
+        <div id="mySidenav" class="sidenav" align="center">
+
+                    <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+                    <a href="#">Sudoku</a>
+                    <a href="#">6x6 Sudoku</a>
+                    <a href="#">4x4 Sudoku</a>
+                    <a href="/killer/">Killer Sudoku</a>
+                    </div>
+
+                    <span style="font-size:20px;cursor:pointer" onclick="openNav()">&#9776; </span>
+
+                    <script>
+                    function openNav() {
+                        document.getElementById("mySidenav").style.width = "250px";
+                    }
+
+                    function closeNav() {
+                        document.getElementById("mySidenav").style.width = "0";
+                    }
+                    </script>
+
+                    
+                     <div class="heading" align="center"><img src="/static/images/SO_DO_KUGO_KILLER.png" /></div>
+                     
         
             <div id="container">
 
@@ -35,7 +58,7 @@
                             {{end}}
                             <tr>
                             {{range .ID}}
-                            <td >  <input id ="{{.}}" type="input" maxlength="1" />  
+                            <td >  <input id ="{{.}}" type="inputkiller" maxlength="1" />  
                             {{end}}
                         {{end}}
                         </table>
