@@ -1,0 +1,110 @@
+<div id="container"></div>
+
+
+
+
+<!DOCTYPE html>
+<html>
+     
+     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+     
+       <head>    
+
+           <link rel="stylesheet" href="/static/css/main.css" />  
+            <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />   
+            <title>Sudoku-Go 23</title>
+   
+
+  
+        </head>
+
+
+        <body>
+
+        <div class="heading"><img src="/static/images/SO_DO_KUGO_FUJI.png" /></div>
+        <!--<div class="heading"><img src="/static/SO_DO_KU_HIROSH.png" /></div>
+        <div class="heading"><img src="/static/SU_DO_KU_GO! GO3.png" /></div>
+        <div class="heading"><img src="/static/SUDOKU_GO! GO3.png" /></div>-->
+            <div id="container">
+
+                <div id="center" class="column">
+                    <table>
+                    <caption></caption>
+                    <colgroup><col><col><col>
+                    <colgroup><col><col><col>
+                    <colgroup><col><col><col>
+                        <tbody>
+
+                        {{range .Sudokus}}
+                        
+                            {{if .Done}}
+                                <tbody>
+                            {{end}}
+                            <tr>
+                            {{range .Value}}
+                            
+                                {{if (eq . 0)}}
+
+                       <td>  <input  maxlength="1" />  
+                                {{else}}
+                                     <td> <input type="input1" maxlength="1" value="{{.}}" disabled/> 
+
+
+
+
+                        
+                        {{end}}
+                        {{end}}
+                        {{end}}
+                        </table>
+                </div>
+
+                </div>
+                    <!--<div id="left" class="column">
+                       <button class="button button1">test</button></br>
+                       <button class="button button1">test</button></br>
+                       <button class="button button1">test</button></br>
+                       <button class="button button1">test</button></br>
+                       <button class="button button1">test</button></br>
+                       
+                    
+                    </div>-->
+                    <div id="right" class="column">
+                        <!--<button class="button button1">New Game</button></br>
+                        <button class="button button1">Solve</button></br>
+                       <button class="button button1">Save</button></br>
+                       <button class="button button1">Load</button></br>
+                       <button class="button button1">Exit</button></br>-->
+                      <p><a href="/game/">NewGame</a></p>
+                       <!--<form method="post" name="myform" action="http://localhost:8081/post" >
+     <p><input type="checkbox" name="" value="Easy" /></p>
+    <p> <input type="checkbox" name="" value="Medium" /></p>
+    <p> <input type="checkbox" name="" value="Hard" /></p>
+    <p> <input type="New Game"></p>
+    </form>-->
+                       <p><a href="">Solve</a></p>
+                       <p><a href="">Save</a></p>
+                       <p><a href="">Load</a></p>
+                       <p><a href="/">Clear</a></p>
+                        
+
+
+                    </div>
+
+            </div>
+
+           
+            </body>
+
+             <div id="footer"> About Contact Help
+
+                 <!-- Add icon library -->
+
+
+                <!-- Add font awesome icons -->
+                <a href="#" class="fa fa-facebook"></a>
+                <a href="#" class="fa fa-twitter"></a>
+... 
+            </div>
+        
+    </html> 

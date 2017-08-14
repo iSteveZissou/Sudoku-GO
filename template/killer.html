@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html>
+     
+     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+     <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet"> 
+     <script type="text/javascript" src="/static/js/main.js"></script>
+     <link rel="shortcut icon" href="/static/favicons/favicon.ico">
+     
+       <head>    
+
+           <link rel="stylesheet" href="/static/css/main.css" />  
+            <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />   
+            <title>Sudoku-Go</title>
+        </head>
+
+         <body onload="addArrays()"> 
+            <!-- <body> -->
+
+        <div class="heading"><img src="/static/images/SO_DO_KUGO_KILLER.png" /></div>
+        
+            <div id="container">
+
+
+                <div id="center" class="column">
+                    <table>
+                    <caption></caption>
+                    <colgroup><col><col><col>
+                    <colgroup><col><col><col>
+                    <colgroup><col><col><col>
+                        <tbody>
+
+                        {{range .Sudokus}}
+                            {{if .Done}}
+                                <tbody>
+                            {{end}}
+                            <tr>
+                            {{range .ID}}
+                            <td >  <input id ="{{.}}" type="input" maxlength="1" />  
+                            {{end}}
+                        {{end}}
+                        </table>
+
+                    
+
+                </div>
+            </div>
+
+                    <div id="right" class="column">
+                        <button onclick="test()">NewGame</button>
+                        <button onclick="solve()">Solve</button>
+                        <button onclick="">Solve Cell</button>
+                        <button onclick="startGame()">Reset</button>
+                        <button onclick="clearBoard()">Clear</button>
+                        <a href="/"><button>Home</button></a>
+                        
+                     
+      
+                    </div>
+
+            </div>
+
+            <div>
+            </div>
+
+              <div id="footer"> About Contact Help
+                <a href="#" class="fa fa-facebook"></a>
+                <a href="#" class="fa fa-twitter"></a>
+
+            </div> 
+
+            <script type="text/javascript">
+
+                        var arr = [
+                            {{range .Sudokus}}
+                                {{range .ID}}
+
+                                    {{.}},
+                                    {{end}}
+                                {{end}}
+                        ];
+
+                        var game =[
+                            {{range .Sudokus}}
+                                {{range .Value}}
+
+                                    {{.}},
+                                    {{end}}
+                                {{end}}
+
+                        ];  
+                        var solved =[
+                            {{range .Sudokus}}
+                                {{range .Solution}}
+                                    {{.}},
+                                    {{end}}
+                                {{end}}
+                        ];  
+                        
+                        function addArrays(){
+                            testFunction(arr, game, solved);
+                        }      
+                     </script>
+
+        </body>
+        
+    </html> 
