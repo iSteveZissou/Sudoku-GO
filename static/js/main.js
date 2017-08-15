@@ -4,6 +4,7 @@
 var idArray;
 var valueArray;
 var solvedArray;
+var current;
 
 function testFunction(x, y, z){
     idArray = x;
@@ -45,4 +46,46 @@ function clearBoard(){
     }
     
 }
-                                          
+
+function getCurrent(clicked_id){
+
+    current = clicked_id;
+    // alert(clicked_id);
+}
+
+function solveCell(){
+
+    if (current == null){
+        alert("Please select a Cell");
+    }
+    //alert(current);
+    document.getElementById(current).value = "F";
+    for (var i =0; i< idArray.length; i++){
+    if (current == idArray[i]){
+        document.getElementById(idArray[i]).value = solvedArray[i]+"";
+        document.getElementById(idArray[i]).type = 'solved';
+        document.getElementById(idArray[i]).disabled = false;
+        document.getElementById(idArray[i]).className = 'current';
+        current = null; 
+        
+        }   
+    }
+    
+    
+}
+function resetBoard(){
+    for (var i =0; i< idArray.length; i++){
+          if (valueArray[i] != 0){
+             document.getElementById(idArray[i]).value = valueArray[i]+"";
+            document.getElementById(idArray[i]).type = 'input1';
+            document.getElementById(idArray[i]).disabled = true;
+                                    
+        }
+        else{
+            document.getElementById(idArray[i]).value = "";
+        document.getElementById(idArray[i]).type = 'solved';
+        document.getElementById(idArray[i]).disabled = false; 
+
+        }
+     }    
+}

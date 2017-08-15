@@ -58,7 +58,8 @@
                             {{end}}
                             <tr>
                             {{range .ID}}
-                            <td >  <input id ="{{.}}" type="inputkiller" maxlength="1" />  
+                            <td >  <input id ="{{.}}" type="inputkiller" maxlength="1" onclick="getCurrent(this.id)"/> 
+                                
                                 
                                 
                             {{end}}
@@ -73,8 +74,8 @@
                     <div id="right" class="column">
                         <button onclick="test()">NewGame</button>
                         <button onclick="solve()">Solve</button>
-                        <button onclick="">Solve Cell</button>
-                        <button onclick="startGame()">Reset</button>
+                        <button onclick="solveCell()">Solve Cell</button>
+                        <button onclick="resetBoard()">Reset</button>
                         <button onclick="clearBoard()">Clear</button>
                         <a href="/"><button>Home</button></a>
                         
@@ -91,6 +92,8 @@
                                 <p>Some text in the Modal..</p>
                                 
                             </div>
+
+                            
 
                             </div>
                         
