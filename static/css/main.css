@@ -50,6 +50,17 @@ table { border-collapse: collapse; margin-left: auto ;
                             font-size:120%; 
                             font-family: 'Open Sans';
             }
+                        input[type="error"]{
+                border:0.5px solid #f70c0c; height: 48px; width: 48px;
+                            text-align: center; padding: 0;
+                            background-color:#f2f2f2;
+                            color:#FFBBC0;
+
+                            font-size:120%; 
+                            font-family: 'Open Sans';
+            }
+
+
             
                  .userInput {
                 border:1px solid white; height: 48px; width: 48px;

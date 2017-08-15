@@ -5,6 +5,7 @@ var idArray;
 var valueArray;
 var solvedArray;
 var current;
+var errorCell = [];
 
 function testFunction(x, y, z){
     idArray = x;
@@ -32,7 +33,7 @@ function solve(){
     if (game[i] == 0){
         document.getElementById(idArray[i]).value = solvedArray[i]+"";
         document.getElementById(idArray[i]).type = 'solved';
-        document.getElementById(idArray[i]).disabled = true; 
+        document.getElementById(idArray[i]).disabled = false; 
         }   
     }
 }
@@ -50,7 +51,18 @@ function clearBoard(){
 function getCurrent(clicked_id){
 
     current = clicked_id;
-    // alert(clicked_id);
+    for (var i =0; i< errorCell.length; i++){
+        if (current == errorCell[i]){
+            document.getElementById(idArray[i]).value = "";
+        document.getElementById(idArray[i]).type = 'solved';
+        document.getElementById(idArray[i]).disabled = false; 
+
+        }
+    }
+
+    
+    
+   
 }
 
 function solveCell(){
@@ -88,4 +100,56 @@ function resetBoard(){
 
         }
      }    
+}
+
+function hint(){
+    var currValue =[];
+    var completedArray =[];
+    for (var i =0; i< idArray.length; i++){
+        var x = document.getElementById(idArray[i]).value;
+        if (x != '' ){
+            currValue[i] = x;
+        }
+        else{
+            currValue[i] = 0;
+            
+        }
+        
+        
+        
+    }
+
+    for (var i =0; i< idArray.length; i++){
+
+        if (valueArray[i] == 0){
+            completedArray[i] = solvedArray[i];
+        }
+        else{
+            completedArray[i] = valueArray[i];
+        }
+        
+    
+    }
+    var count = 0;
+    for (var i =0; i< idArray.length; i++){
+        
+
+        if (currValue[i] != completedArray[i]){
+            count++;
+            document.getElementById(idArray[i]).type = 'error';
+            errorCell[i] = idArray[i];
+            // alert("there is a mistake");
+
+            
+        }
+    
+    }
+    
+    if (count != 0){
+        alert("You have " + count + " Mistakes");
+    }
+    
+
+      
+
 }
