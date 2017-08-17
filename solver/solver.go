@@ -1,6 +1,7 @@
 package Solver
 
 import (
+	"fmt"
 	"log"
 	"time"
 )
@@ -20,6 +21,8 @@ type Grid struct {
 type NewDataStruct struct {
 	Test int
 }
+
+var countSolved = 0
 
 func timeTrack(start time.Time, name string) {
 	elapsed := time.Since(start)
@@ -70,6 +73,7 @@ func (grid *Grid) isValid(c Cell, v int) bool {
 
 func (grid *Grid) solve(c Cell) bool {
 	// defer timeTrack(time.Now(), "Solving")
+	countSolved++
 
 	if c.value == 10 {
 		return true
@@ -145,6 +149,8 @@ func (grid *Grid) getNextCell(c Cell) Cell {
 
 //"newsolver"
 func NewSolver(puzzle [9][9]int) [9][9]int {
+	countSolved = 0
+	fmt.Println("start of solve ", countSolved)
 
 	grid := new(Grid)
 	var b [9][9]int
@@ -166,6 +172,7 @@ func NewSolver(puzzle [9][9]int) [9][9]int {
 
 			}
 		}
+		fmt.Println("here is the total solving time ", countSolved)
 		return b
 	}
 

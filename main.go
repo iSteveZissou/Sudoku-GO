@@ -31,9 +31,7 @@ var f Solver.NewDataStruct
 
 func main() {
 	tmpl := template.Must(template.ParseFiles("template/GUI.html"))
-	f.Test = 9
 
-	fmt.Print(f.Test)
 	var b = Solver.GetEmptyPuzzle()
 
 	sudoku := arrayToData(b)
@@ -61,7 +59,7 @@ func gameHandler(w http.ResponseWriter, r *http.Request) {
 
 	var solvedArray = Solver.NewSolver(b)
 	sudoku := getUnsolved(b, solvedArray)
-	fmt.Print("This is reloading the page")
+	// fmt.Print("This is reloading the page")
 
 	// var solved = newSolver(b)
 

@@ -133,8 +133,6 @@ func shuffleRow() {
 
 func removeCellsEasy(board [9][9]int) [9][9]int {
 
-	fmt.Print("here i am")
-
 	//generate 25 random numbers between one and nine for row index
 	// s1 := rand.NewSource(time.Now().UnixNano())
 	// r1 := rand.New(s1)
@@ -161,7 +159,7 @@ func removeCellsEasy(board [9][9]int) [9][9]int {
 			if h == newCell {
 				i = i - 1
 				isFound = true
-				fmt.Print("STOP")
+				// fmt.Print("STOP")
 				break
 
 			}
@@ -179,7 +177,7 @@ func removeCellsEasy(board [9][9]int) [9][9]int {
 		}
 
 	}
-	fmt.Print(s)
+	// fmt.Print(s)
 
 	return board
 
