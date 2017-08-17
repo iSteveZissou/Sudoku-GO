@@ -68,6 +68,12 @@ table { border-collapse: collapse; margin-left: auto ;
                             font-family: 'Open Sans';
             }
 
+            select{
+                text-align: center;
+                align-content: center;
+                align-self: center;
+            }
+
             
 
 
