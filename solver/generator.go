@@ -7,7 +7,17 @@ import (
 )
 
 // Get empty puzzle
-func GetPuzzle() [9][9]int {
+func GetPuzzle(i string) [9][9]int {
+
+	switch i {
+	case "Easy":
+		fmt.Println("The user has selected ", i)
+	case "Medium":
+		fmt.Println("The user has selected ", i)
+	case "Hard":
+		fmt.Println("The user has selected ", i)
+
+	}
 
 	var b = GetNewStart()
 	var c = NewSolver(b)

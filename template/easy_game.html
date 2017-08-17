@@ -70,7 +70,15 @@
 
                     <div id="right" class="column">
                         <!--<button onclick="test()">NewGame</button>-->
-                        <a href="/game/"><button>NewGame</button></a>
+                        <form action="/game/" method="post">
+                        <select name="cars">
+                            <option value="Easy">Easy</option>
+                            <option value="Medium">Medium</option>
+                            <option value="Hard">Hard</option>
+                        </select>
+                            <button>NewGame</button></a>
+                            </form>
+                        <!--<a href="/game/"><button>NewGame</button></a>-->
                         <button onclick="solve()">Solve</button>
                         <button onclick="solveCell()">Solve Cell</button>
                         <button onclick="resetBoard()">Reset</button>

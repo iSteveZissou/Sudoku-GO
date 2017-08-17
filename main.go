@@ -6,6 +6,7 @@ import (
 	"html/template"
 	"net/http"
 	"strconv"
+	"strings"
 )
 
 type Todo struct {
@@ -53,7 +54,18 @@ func faviconHandler(w http.ResponseWriter, r *http.Request) {
 
 func gameHandler(w http.ResponseWriter, r *http.Request) {
 
-	var b = Solver.GetPuzzle()
+	var optionSelected string
+	r.ParseForm() //Parse url parameters passed, then parse the response packet for the POST body (request body)
+	// attention: If you do not call ParseForm method, the following data can not be obtained form
+	fmt.Println(r.Form) // print information on server side.
+	for k, v := range r.Form {
+		fmt.Println("key:", k)
+		fmt.Println("val:", strings.Join(v, ""))
+		optionSelected = strings.Join(v, " ")
+	}
+
+	fmt.Println(optionSelected)
+	var b = Solver.GetPuzzle(optionSelected)
 
 	// sudoku := arrayToData(b)
 
@@ -71,7 +83,7 @@ func gameHandler(w http.ResponseWriter, r *http.Request) {
 
 func killerHandler(w http.ResponseWriter, r *http.Request) {
 
-	var b = Solver.GetPuzzle()
+	var b = Solver.GetPuzzle("")
 
 	fmt.Println(b)
 	var solvedArray = Solver.NewSolver(b)
