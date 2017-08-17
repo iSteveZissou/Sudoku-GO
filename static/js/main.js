@@ -12,13 +12,16 @@ function testFunction(x, y, z){
     valueArray = y;
     solvedArray = z;
     
+    clearBoard();
     startGame();
+    
 }
 // Uses the array variables to set the game's starting values
 function startGame(){
     // alert(idArray);
      for (var i =0; i< idArray.length; i++){
           if (valueArray[i] != 0){
+              
              document.getElementById(idArray[i]).value = valueArray[i]+"";
             document.getElementById(idArray[i]).type = 'input1';
             document.getElementById(idArray[i]).disabled = true;
