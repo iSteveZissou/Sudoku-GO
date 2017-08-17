@@ -119,7 +119,7 @@ table { border-collapse: collapse; margin-left: auto ;
           }
           #right{
               width: 300px;
-              margin-right: 0px;
+              margin-right: 100px;
               left: -100px;
               /* background-color: ; */
               text-align: center;
