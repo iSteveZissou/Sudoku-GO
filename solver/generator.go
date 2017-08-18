@@ -161,7 +161,7 @@ func removeCellsEasy(board [9][9]int) [9][9]int {
 	for i := 0; i < N; i++ {
 		isFound = false
 		// rand.Seed(time.Now().Unix())
-		newCell := [2]int{random(0, 9), random(0, 9)}
+		newCell := [2]int{Random(0, 9), Random(0, 9)}
 		for _, h := range s {
 			// fmt.Print(newCell)
 			// fmt.Print(h)
@@ -194,7 +194,7 @@ func removeCellsEasy(board [9][9]int) [9][9]int {
 }
 
 //go cookbook
-func random(min, max int) int {
+func Random(min, max int) int {
 
 	return rand.Intn(max-min) + min
 }
