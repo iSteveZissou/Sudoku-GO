@@ -1,1 +1,1 @@
-web: main
+web: Sudoku-GO
