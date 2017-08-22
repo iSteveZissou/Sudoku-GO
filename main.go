@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"html/template"
 	"net/http"
+	"os"
 	"strconv"
 	"strings"
 )
@@ -46,7 +47,7 @@ func main() {
 	http.HandleFunc("/favicon.ico", faviconHandler)
 	http.HandleFunc("/game/", gameHandler)
 	http.HandleFunc("/killer/", killerHandler)
-	http.ListenAndServe(":8080", nil)
+	http.ListenAndServe(":"+os.Getenv("PORT"), nil)
 }
 func faviconHandler(w http.ResponseWriter, r *http.Request) {
 	http.ServeFile(w, r, "/static/favicons/favicon.ico")
