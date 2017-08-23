@@ -70,7 +70,7 @@ func gameHandler(w http.ResponseWriter, r *http.Request) {
 
 	// sudoku := arrayToData(b)
 
-	var solvedArray = Solver.NewSolver(b)
+	var solvedArray = Solver.NewSolver(b, true)
 	sudoku := getUnsolved(b, solvedArray)
 	// fmt.Print("This is reloading the page")
 
@@ -87,7 +87,7 @@ func killerHandler(w http.ResponseWriter, r *http.Request) {
 	var b = Solver.GetPuzzle("")
 
 	fmt.Println(b)
-	var solvedArray = Solver.NewSolver(b)
+	var solvedArray = Solver.NewSolver(b, true)
 	fmt.Println(solvedArray)
 
 	// sudoku := arrayToData(solvedArray)
