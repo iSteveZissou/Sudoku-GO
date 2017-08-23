@@ -19,10 +19,20 @@ func GetPuzzle(i string) [9][9]int {
 
 	}
 
-	var b = GetNewStart()
-	var c = NewSolver(b)
-	var d = removeCellsEasy(c)
-	return d
+	// loop to generate puzzle until one with a unique solution is found
+	for {
+		var b = GetNewStart()
+		fmt.Print(b)
+		var c = NewSolver(b, false)
+		var d = removeCellsEasy(c)
+		fmt.Print("here is d", d)
+
+		NewSolver(d, true)
+		if SolutionCount == 1 {
+			return d
+		}
+	}
+	// return d
 
 }
 
@@ -153,9 +163,9 @@ func removeCellsEasy(board [9][9]int) [9][9]int {
 
 	// b := []int{random(0, 9), random(0, 9)}
 	// fmt.Print(b)
-	var N = 60
+	var N = 50
 
-	var s [60][2]int
+	var s [50][2]int
 	var isFound = false
 	// copy(board[i][:2], s))
 	for i := 0; i < N; i++ {
@@ -197,29 +207,4 @@ func removeCellsEasy(board [9][9]int) [9][9]int {
 func Random(min, max int) int {
 
 	return rand.Intn(max-min) + min
-}
-
-func printBoard(board [9][9]int) {
-
-	for i := 0; i < 9; i++ {
-
-		if i == 0 || i == 3 || i == 6 || i == 9 {
-			fmt.Println(" -  - - -  -  - - -  -  - - -  -  -  -")
-		}
-
-		for j := 0; j < 9; j++ {
-			if j == 3 || j == 6 {
-				fmt.Print("|")
-			}
-			var v = board[i][j]
-			if v == 0 {
-				fmt.Printf("    ")
-			} else {
-				fmt.Printf("  %d ", v)
-			}
-
-		}
-		fmt.Println()
-	}
-
 }

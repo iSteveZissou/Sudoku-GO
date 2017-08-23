@@ -23,38 +23,84 @@ type NewDataStruct struct {
 }
 
 var countSolved = 0
+var newGameGrid [9][9]int
+var firstSolve bool
+var Solved bool
+
+var SolutionCount int
+var possibilities []int
 
 func timeTrack(start time.Time, name string) {
 	elapsed := time.Since(start)
 	log.Printf("%s took %s", name, elapsed)
 }
 
-func (grid *Grid) isValid(c Cell, v int) bool {
+// func (grid *Grid) isValid(c Cell, v int) bool {
 
-	col := c.col
-	row := c.row
+// 	col := c.col
+// 	row := c.row
 
-	//check row
+// 	//check row
+// 	for i := 0; i < 9; i++ {
+// 		if grid.cells[row][i].value == v {
+// 			// fmt.Println("found in row")
+// 			return false
+// 		}
+// 	}
+
+// 	//check column
+// 	for i := 0; i < 9; i++ {
+// 		if grid.cells[i][col].value == v {
+
+// 			// fmt.Println("already here!")
+// 			return false
+// 		}
+
+// 	}
+// 	var nrow = c.row
+// 	var ncol = c.col
+
+// 	//check grid // redo this!!!!
+// 	var x1 = 3 * (nrow / 3)
+// 	var y1 = 3 * (ncol / 3)
+// 	var x2 = x1 + 2
+// 	var y2 = y1 + 2
+
+// 	for i := x1; i <= x2; i++ {
+// 		for j := y1; j <= y2; j++ {
+// 			if grid.cells[i][j].value == v {
+// 				// fmt.Println("found in grid")
+// 				return false
+// 			}
+// 		}
+// 	}
+// 	return true
+// }
+
+func (grid *Grid) getCandidates(c Cell) []int {
+	possibilities := make([]int, 0)
+	possibilities = possibilities[:0]
+	// fmt.Print(possibilities)
+
 	for i := 0; i < 9; i++ {
-		if grid.cells[row][i].value == v {
+		if grid.cells[c.row][i].value != 0 {
 			// fmt.Println("found in row")
-			return false
+			possibilities = append(possibilities, grid.cells[c.row][i].value)
+
+		} else {
+			// possibilities = append(possibilities, i)
 		}
 	}
-
-	//check column
 	for i := 0; i < 9; i++ {
-		if grid.cells[i][col].value == v {
-
-			// fmt.Println("already here!")
-			return false
+		if grid.cells[i][c.col].value != 0 {
+			possibilities = append(possibilities, grid.cells[i][c.col].value)
+		} else {
 		}
-
 	}
+	//check grid // redo this!!!!
+	// var v = c.value
 	var nrow = c.row
 	var ncol = c.col
-
-	//check grid // redo this!!!!
 	var x1 = 3 * (nrow / 3)
 	var y1 = 3 * (ncol / 3)
 	var x2 = x1 + 2
@@ -62,21 +108,74 @@ func (grid *Grid) isValid(c Cell, v int) bool {
 
 	for i := x1; i <= x2; i++ {
 		for j := y1; j <= y2; j++ {
-			if grid.cells[i][j].value == v {
+			if grid.cells[i][j].value != 0 {
 				// fmt.Println("found in grid")
-				return false
+				possibilities = append(possibilities, grid.cells[i][j].value)
 			}
 		}
 	}
-	return true
+	possd := make([]int, 0)
+	possd = possd[:0]
+
+	for i := 1; i <= 9; i++ {
+		if !contains(possibilities, i) {
+			possd = append(possd, i)
+		}
+	}
+
+	// fmt.Println(possd)
+	return possd
+
+}
+
+func contains(s []int, v int) bool {
+	for _, a := range s {
+		if a == v {
+			return true
+		}
+	}
+	return false
 }
 
 func (grid *Grid) solve(c Cell) bool {
 	// defer timeTrack(time.Now(), "Solving")
-	countSolved++
-
 	if c.value == 10 {
+
+		if !firstSolve {
+			fmt.Println("HELP")
+			for i := 0; i < 9; i++ {
+				for j := 0; j < 9; j++ {
+					newGameGrid[i][j] = grid.cells[i][j].value
+
+				}
+			}
+			firstSolve = true
+			SolutionCount = 99999
+
+		}
+		Solved = true
+
+		SolutionCount++
+		if SolutionCount == 1 {
+			for i := 0; i < 9; i++ {
+				for j := 0; j < 9; j++ {
+					newGameGrid[i][j] = grid.cells[i][j].value
+
+				}
+			}
+			fmt.Println("FUCK")
+			printBoard(newGameGrid)
+
+		}
+		fmt.Println("Solution count = ", SolutionCount)
+		grid.printGrid()
 		return true
+		fmt.Println("Solution Found!")
+		SolutionCount++
+
+		// if solutionCount > 2{
+		// 	return true
+		// }
 
 	}
 
@@ -85,37 +184,28 @@ func (grid *Grid) solve(c Cell) bool {
 		return grid.solve(grid.getNextCell(c))
 
 	}
-	// fmt.Println("here goes the first empty", c.row, c.col)
+	var candidates = grid.getCandidates(c)
 
-	// var x, y = grid.getNextCell(c)
+	for _, a := range candidates {
 
-	// if c.value > 0 {
-	// 	grid.solve()
+		grid.cells[c.row][c.col].value = a
+		grid.solve(grid.getNextCell(c))
 
-	// }
-
-	for i := 1; i <= 9; i++ {
-
-		var valid = grid.isValid(c, i)
-
-		if !valid {
-			// fmt.Println("NOT VALID")
-			continue
-		}
-
-		grid.cells[c.row][c.col].value = i
-		// fmt.Println("I am cell ", c.row, c.col)
-		// fmt.Println("Current value = ", grid.cells[c.row][c.col].value)
-
-		var solved = grid.solve(grid.getNextCell(c))
-
-		if solved {
+		// if solved {
+		// 	return true
+		// }
+		if SolutionCount == 100000 {
 			return true
 		}
+
+		if SolutionCount > 1 {
+			return true
+		}
+
 		grid.cells[c.row][c.col].value = 0
 
 	}
-	// fmt.Println("HHHHHHHHHJDDDDDDDDDDDDDDDDDDDDDDD")
+
 	return false
 }
 
@@ -140,16 +230,16 @@ func (grid *Grid) getNextCell(c Cell) Cell {
 		return test
 	}
 
-	// var curRow = c.row
-	// var curCol = c.col
-	// fmt.Println("return this cell:", row, col)
 	return grid.cells[row][col]
 
 }
 
 //"newsolver"
-func NewSolver(puzzle [9][9]int) [9][9]int {
+func NewSolver(puzzle [9][9]int, gen bool) [9][9]int {
+	firstSolve = gen
 	countSolved = 0
+	SolutionCount = 0
+	Solved = false
 	fmt.Println("start of solve ", countSolved)
 
 	grid := new(Grid)
@@ -164,18 +254,72 @@ func NewSolver(puzzle [9][9]int) [9][9]int {
 		}
 	}
 
-	if grid.solve(grid.cells[0][0]) {
+	grid.solve(grid.cells[0][0])
 
+	if Solved {
 		for i := 0; i < 9; i++ {
 			for j := 0; j < 9; j++ {
-				b[i][j] = grid.cells[i][j].value
+				b[i][j] = newGameGrid[i][j]
 
 			}
 		}
 		fmt.Println("here is the total solving time ", countSolved)
+		fmt.Println("FUCKSAKE", b)
+		// SolutionCount = 0
+		// grid.printGrid()
 		return b
+
 	}
 
 	return b
+
+}
+
+func (grid *Grid) printGrid() {
+
+	for i := 0; i < 9; i++ {
+
+		if i == 0 || i == 3 || i == 6 || i == 9 {
+			fmt.Println(" -  - - -  -  - - -  -  - - -  -  -  -")
+		}
+
+		for j := 0; j < 9; j++ {
+			if j == 3 || j == 6 {
+				fmt.Print("|")
+			}
+			var v = grid.cells[i][j].value
+			if v == 0 {
+				fmt.Printf("    ")
+			} else {
+				fmt.Printf("  %d ", v)
+			}
+
+		}
+		fmt.Println()
+	}
+
+}
+func printBoard(board [9][9]int) {
+
+	for i := 0; i < 9; i++ {
+
+		if i == 0 || i == 3 || i == 6 || i == 9 {
+			fmt.Println(" -  - - -  -  - - -  -  - - -  -  -  -")
+		}
+
+		for j := 0; j < 9; j++ {
+			if j == 3 || j == 6 {
+				fmt.Print("|")
+			}
+			var v = board[i][j]
+			if v == 0 {
+				fmt.Printf("    ")
+			} else {
+				fmt.Printf("  %d ", v)
+			}
+
+		}
+		fmt.Println()
+	}
 
 }
