@@ -5,14 +5,14 @@ table { border-collapse: collapse; margin-left: auto ;
             colgroup, tbody { border:3px solid      #d6d0cf    ;
                             
                                 }
-            td { border:0px solid white; height: 38px; width: 38px;
+            td { border:0px solid white; height: 48px; width: 48px;
                             text-align: center; padding: 0;
                             background-color:#f2f2f2;
                             color:#526e77;
                             font-size:120%; 
                             }
                   
-            input { border:1px solid white; height: 38px; width: 38px;
+            input { border:1px solid white; height: 48px; width: 48px;
                             text-align: center; padding: 0;
                             background-color:#f2f2f2;
                             color:#36778c;
@@ -34,7 +34,7 @@ table { border-collapse: collapse; margin-left: auto ;
             }
 
             input[type="input1"]{
-                border:1px solid white; height: 38px; width: 38px;
+                border:1px solid white; height: 48px; width: 48px;
                             text-align: center; padding: 0;
                             background-color:#eaeded ;
                             color:#526e77;
@@ -42,7 +42,7 @@ table { border-collapse: collapse; margin-left: auto ;
                             font-family: 'Open Sans';
             }
             input[type="solved"]{
-                border:1px solid white; height: 38px; width: 38px;
+                border:1px solid white; height: 48px; width: 48px;
                             text-align: center; padding: 0;
                             background-color:#f2f2f2 ;
                             color:#FFBBC0;
@@ -51,7 +51,7 @@ table { border-collapse: collapse; margin-left: auto ;
                             font-family: 'Open Sans';
             }
                         input[type="error"]{
-                border:0.5px solid #f70c0c; height: 38px; width: 38px;
+                border:0.5px solid #f70c0c; height: 48px; width: 48px;
                             text-align: center; padding: 0;
                             background-color:#f2f2f2;
                             color:#FFBBC0;
