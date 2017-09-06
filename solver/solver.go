@@ -163,7 +163,7 @@ func (grid *Grid) solve(c Cell) bool {
 
 				}
 			}
-			fmt.Println("FUCK")
+
 			printBoard(newGameGrid)
 
 		}
@@ -263,14 +263,14 @@ func NewSolver(puzzle [9][9]int, gen bool) [9][9]int {
 
 			}
 		}
-		fmt.Println("here is the total solving time ", countSolved)
-		fmt.Println("FUCKSAKE", b)
+		// fmt.Println("here is the total solving time ", countSolved)
+		// fmt.Println("FUCKSAKE", b)
 		// SolutionCount = 0
 		// grid.printGrid()
 		return b
 
 	}
-
+	fmt.Print("PUZZLE CANNOT BE SOLVED _ NO SOLUTION ")
 	return b
 
 }

@@ -7,6 +7,8 @@ import (
 )
 
 // Get empty puzzle
+// parameter is a string - the user's choice of difficulty
+// returns a new generated standard sudoku Puzzle
 func GetPuzzle(i string) [9][9]int {
 
 	switch i {
@@ -32,7 +34,6 @@ func GetPuzzle(i string) [9][9]int {
 			return d
 		}
 	}
-	// return d
 
 }
 
