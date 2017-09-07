@@ -313,71 +313,7 @@ body {
     width: 80%;
 }
 
-/* The Close Button */
-.close {
-    color: #aaaaaa;
-    float: right;
-    font-size: 28px;
-    font-weight: bold;
-}
-
-.close:hover,
-.close:focus {
-    color: #000;
-    text-decoration: none;
-    cursor: pointer;
-}
-.current {
-			background: green;
-        }
-
- 
 
 
 
 
-.controls {
-  
-  text-align: center;
-  top: 7em;
-  width: 100%;
-}
-
-.button2 {
-  color: #bbb;
-  font-size: 1vw;
-  margin: 0 0.0em;
-  text-decoration: none;
-}
-
-.button2:first-child {
-    margin-left: 0;
-}
-
-.button2:last-child {
-    margin-right: 0;
-}
-
-.button2:hover {
-  color: white;
-}
-
-.stopwatch {
-  font-size: 50vw;
-  height: 100%;
-  line-height: 50vh;
-  text-align: left;
-    color: black;
-}
-
-.results {
-  border-color: lime;
-  list-style: none;
-  margin: 0;
-  padding: 0;
-  /* position: absolute; */
-  bottom: 0;
-  left: 50%;
-  transform: translateX(-50%);
-}
-            
