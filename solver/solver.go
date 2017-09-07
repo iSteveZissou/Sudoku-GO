@@ -11,26 +11,19 @@ type Cell struct {
 	col      int
 	value    int
 	solution int
-	colgroup bool
 }
 
 type Grid struct {
-	cells [9][9]Cell
+	cells         [9][9]Cell
+	Solved        bool
+	SolutionCount int
+	firstSolve    bool
+	possibilities []int
 }
 
-type NewDataStruct struct {
-	Test int
-}
-
-var countSolved = 0
 var newGameGrid [9][9]int
-var firstSolve bool
-var Solved bool
-
 var SolutionCount int
-var possibilities []int
 
-// function found online to track the time of a comptutation
 func timeTrack(start time.Time, name string) {
 	elapsed := time.Since(start)
 	log.Printf("%s took %s", name, elapsed)
@@ -100,7 +93,7 @@ func (grid *Grid) solve(c Cell) bool {
 	// defer timeTrack(time.Now(), "Solving")
 	if c.value == 10 {
 
-		if !firstSolve {
+		if !grid.firstSolve {
 			fmt.Println("HELP")
 			for i := 0; i < 9; i++ {
 				for j := 0; j < 9; j++ {
@@ -108,33 +101,27 @@ func (grid *Grid) solve(c Cell) bool {
 
 				}
 			}
-			firstSolve = true
-			SolutionCount = 99999
+			grid.firstSolve = true
+			grid.SolutionCount = 99999
 
 		}
-		Solved = true
+		grid.Solved = true
 
-		SolutionCount++
-		if SolutionCount == 1 {
+		grid.SolutionCount++
+		if grid.SolutionCount == 1 {
 			for i := 0; i < 9; i++ {
 				for j := 0; j < 9; j++ {
 					newGameGrid[i][j] = grid.cells[i][j].value
 
 				}
 			}
-
+			fmt.Println("FUCK")
 			printBoard(newGameGrid)
 
 		}
-		fmt.Println("Solution count = ", SolutionCount)
+		fmt.Println("Solution count = ", grid.SolutionCount)
 		grid.printGrid()
 		return true
-		fmt.Println("Solution Found!")
-		SolutionCount++
-
-		// if solutionCount > 2{
-		// 	return true
-		// }
 
 	}
 
@@ -153,11 +140,11 @@ func (grid *Grid) solve(c Cell) bool {
 		// if solved {
 		// 	return true
 		// }
-		if SolutionCount == 100000 {
+		if grid.SolutionCount == 100000 {
 			return true
 		}
 
-		if SolutionCount > 1 {
+		if grid.SolutionCount > 1 {
 			return true
 		}
 
@@ -195,13 +182,12 @@ func (grid *Grid) getNextCell(c Cell) Cell {
 
 //"newsolver"
 func NewSolver(puzzle [9][9]int, gen bool) [9][9]int {
-	firstSolve = gen
-	countSolved = 0
-	SolutionCount = 0
-	Solved = false
-	fmt.Println("start of solve ", countSolved)
 
 	grid := new(Grid)
+	grid.SolutionCount = 0
+	grid.Solved = false
+	grid.firstSolve = gen
+
 	var b [9][9]int
 
 	for i := 0; i < 9; i++ {
@@ -209,12 +195,14 @@ func NewSolver(puzzle [9][9]int, gen bool) [9][9]int {
 			grid.cells[i][j].value = puzzle[i][j]
 			grid.cells[i][j].row = i
 			grid.cells[i][j].col = j
+
 		}
 	}
 
 	grid.solve(grid.cells[0][0])
+	SolutionCount = grid.SolutionCount
 
-	if Solved {
+	if grid.Solved {
 		for i := 0; i < 9; i++ {
 			for j := 0; j < 9; j++ {
 				b[i][j] = newGameGrid[i][j]
@@ -225,12 +213,11 @@ func NewSolver(puzzle [9][9]int, gen bool) [9][9]int {
 		return b
 
 	}
-	fmt.Print("PUZZLE CANNOT BE SOLVED _ NO SOLUTION ")
+
 	return b
 
 }
 
-// Used to display the Sudoku puzzle Grid to the console
 func (grid *Grid) printGrid() {
 
 	for i := 0; i < 9; i++ {
@@ -255,8 +242,6 @@ func (grid *Grid) printGrid() {
 	}
 
 }
-
-// Used to display a 2d int array as a Sudoku puzzle on the console
 func printBoard(board [9][9]int) {
 
 	for i := 0; i < 9; i++ {
