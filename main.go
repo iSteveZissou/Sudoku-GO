@@ -10,11 +10,9 @@ import (
 	"strings"
 )
 
-type Todo struct {
-	Task string
-	Done bool
-}
-
+// data structure for the main Sudoku Grid
+// Done Boolean value is used for building the HTML table that
+// displays the grid
 type Sudoku struct {
 	Done     bool
 	Value    [9]int
@@ -22,18 +20,18 @@ type Sudoku struct {
 	Solution [9]int
 	ID       [9]string
 }
+
+// Data structure to display the value for each cell i.e A1 to I9
 type CellID struct {
 	Row int
 	Col int
 }
 
-var n int
-
-var f Solver.NewDataStruct
-
+// function main starts the application server. An empty puzzle is used to
+// build the HTML game template - so that fromatting is correct
 func main() {
-	tmpl := template.Must(template.ParseFiles("template/GUI.html"))
 
+	tmpl := template.Must(template.ParseFiles("template/GUI.html"))
 	var b = Solver.GetEmptyPuzzle()
 
 	sudoku := arrayToData(b)
@@ -42,22 +40,30 @@ func main() {
 		tmpl.Execute(w, struct{ Sudokus [9]Sudoku }{sudoku})
 	})
 
+	//file server for handling static files
 	fs := http.FileServer(http.Dir("static"))
 	http.Handle("/static/", http.StripPrefix("/static/", fs))
+
 	http.HandleFunc("/favicon.ico", faviconHandler)
 	http.HandleFunc("/game/", gameHandler)
 	http.HandleFunc("/killer/", killerHandler)
 	http.ListenAndServe(":"+os.Getenv("PORT"), nil)
 }
+
+// Simple funtion to serve the favicon
 func faviconHandler(w http.ResponseWriter, r *http.Request) {
 	http.ServeFile(w, r, "/static/favicons/favicon.ico")
 }
 
+// the game handler will recieve information from the server with the requested difficulty level
+// as a string
+// The handler will then get a newly generated puzzle from the solver package and then
+// solve it.
+// The template will then be rendered appropriately
 func gameHandler(w http.ResponseWriter, r *http.Request) {
 
 	var optionSelected string
-	r.ParseForm() //Parse url parameters passed, then parse the response packet for the POST body (request body)
-	// attention: If you do not call ParseForm method, the following data can not be obtained form
+	r.ParseForm()
 	fmt.Println(r.Form) // print information on server side.
 	for k, v := range r.Form {
 		fmt.Println("key:", k)
@@ -68,13 +74,8 @@ func gameHandler(w http.ResponseWriter, r *http.Request) {
 	fmt.Println(optionSelected)
 	var b = Solver.GetPuzzle(optionSelected)
 
-	// sudoku := arrayToData(b)
-
 	var solvedArray = Solver.NewSolver(b, true)
 	sudoku := getUnsolved(b, solvedArray)
-	// fmt.Print("This is reloading the page")
-
-	// var solved = newSolver(b)
 
 	t := template.Must(template.ParseFiles("template/easy_game.html"))
 	t, _ = t.ParseFiles("template/easy_game.html")
@@ -82,6 +83,7 @@ func gameHandler(w http.ResponseWriter, r *http.Request) {
 	t.Execute(w, struct{ Sudokus [9]Sudoku }{sudoku})
 }
 
+// Function handler for the Killer template - needs updated
 func killerHandler(w http.ResponseWriter, r *http.Request) {
 
 	var b = Solver.GetPuzzle("")
@@ -120,6 +122,11 @@ func arrayToData(solved [9][9]int) [9]Sudoku {
 	return solvedSudoku
 }
 
+// This function is to set the variables in the Sudoku data Structure so that
+// a Sudoku grid has both the value and solutions
+// This can then be used appropriately for the Client side logic to control the game
+// This function will also fill the CellId data structure with value coresponding to the Cell
+// The method returns a Completed Sudoku array
 func getUnsolved(unsolved [9][9]int, solved [9][9]int) [9]Sudoku {
 	solvedSudoku := [9]Sudoku{}
 
@@ -134,6 +141,7 @@ func getUnsolved(unsolved [9][9]int, solved [9][9]int) [9]Sudoku {
 			}
 			var f string
 
+			// switch statement to set correct Cell ID
 			switch i {
 			case 0:
 				f = "A"
@@ -159,6 +167,8 @@ func getUnsolved(unsolved [9][9]int, solved [9][9]int) [9]Sudoku {
 			s := strconv.Itoa(j + 1)
 			solvedSudoku[i].ID[j] = f + s
 
+			// The done variable is used to identify in the template the boundaries of the minigrids for the
+			// thicker border
 			if i == 3 || i == 6 {
 				solvedSudoku[i].Done = true
 			} else {
