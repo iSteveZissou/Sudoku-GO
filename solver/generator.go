@@ -112,6 +112,7 @@ func GetNewStart() [9][9]int {
 
 }
 
+// function to get the first row of the grid
 func getShuffledRows(grid [3]int) [6]int {
 
 	s1 := rand.NewSource(time.Now().UnixNano())
@@ -150,6 +151,8 @@ func shuffleRow() {
 
 }
 
+// function for removing a number of cells from the grid at random
+// Will return a standrad Sudoku puzzle ready for play
 func removeCellsEasy(board [9][9]int) [9][9]int {
 
 	//generate 25 random numbers between one and nine for row index

@@ -6,6 +6,7 @@ import (
 	"time"
 )
 
+// Basic data structure for individual Sudoku cells
 type Cell struct {
 	row      int
 	col      int
@@ -13,6 +14,8 @@ type Cell struct {
 	solution int
 }
 
+// The grid struct is a representation of the complete sudoku board
+// its values
 type Grid struct {
 	cells         [9][9]Cell
 	Solved        bool
@@ -21,26 +24,31 @@ type Grid struct {
 	possibilities []int
 }
 
+// new ganme grid for copying to once the puzzle is solved
 var newGameGrid [9][9]int
+
+// variable showing the number of solution a puzzle has
 var SolutionCount int
 
+// Time track function found at https://gobyexample.com/
 func timeTrack(start time.Time, name string) {
 	elapsed := time.Since(start)
 	log.Printf("%s took %s", name, elapsed)
 }
 
+// This method gets the suitable candiates for the solver to try when placing a number in a cell
+// the method will check for all legal moves and then return a slice containing those values
 func (grid *Grid) getCandidates(c Cell) []int {
 	possibilities := make([]int, 0)
 	possibilities = possibilities[:0]
-	// fmt.Print(possibilities)
 
 	for i := 0; i < 9; i++ {
 		if grid.cells[c.row][i].value != 0 {
-			// fmt.Println("found in row")
+
 			possibilities = append(possibilities, grid.cells[c.row][i].value)
 
 		} else {
-			// possibilities = append(possibilities, i)
+
 		}
 	}
 	for i := 0; i < 9; i++ {
@@ -49,8 +57,7 @@ func (grid *Grid) getCandidates(c Cell) []int {
 		} else {
 		}
 	}
-	//check grid // redo this!!!!
-	// var v = c.value
+	//check grid //
 	var nrow = c.row
 	var ncol = c.col
 	var x1 = 3 * (nrow / 3)
@@ -74,12 +81,11 @@ func (grid *Grid) getCandidates(c Cell) []int {
 			possd = append(possd, i)
 		}
 	}
-
-	// fmt.Println(possd)
 	return possd
-
 }
 
+// Simple contains function to see if a value v is already in a given slice
+// returns Boolean indicating the condition is true or false
 func contains(s []int, v int) bool {
 	for _, a := range s {
 		if a == v {
@@ -89,6 +95,9 @@ func contains(s []int, v int) bool {
 	return false
 }
 
+// The main solve method
+// solve method takes a single Cell as a paramter and recurively gos through each cell in the Grid trying to solve the puzzle
+//
 func (grid *Grid) solve(c Cell) bool {
 	// defer timeTrack(time.Now(), "Solving")
 	if c.value == 10 {
@@ -115,7 +124,6 @@ func (grid *Grid) solve(c Cell) bool {
 
 				}
 			}
-			fmt.Println("FUCK")
 			printBoard(newGameGrid)
 
 		}
@@ -132,14 +140,12 @@ func (grid *Grid) solve(c Cell) bool {
 	}
 	var candidates = grid.getCandidates(c)
 
+	// loop to get the cycle through the slice of candidates
 	for _, a := range candidates {
 
 		grid.cells[c.row][c.col].value = a
 		grid.solve(grid.getNextCell(c))
 
-		// if solved {
-		// 	return true
-		// }
 		if grid.SolutionCount == 100000 {
 			return true
 		}
@@ -155,6 +161,9 @@ func (grid *Grid) solve(c Cell) bool {
 	return false
 }
 
+// This method will return the next cell in the Grid
+// when the end is reached the return is a cell with a value 10 to indicate to the solve
+// method it is at the end of the array
 func (grid *Grid) getNextCell(c Cell) Cell {
 
 	var test Cell
@@ -163,7 +172,6 @@ func (grid *Grid) getNextCell(c Cell) Cell {
 	var row = c.row
 	var col = c.col
 
-	// fmt.Println("This goes in tooo", row, col)
 	col++
 
 	if col > 8 {
@@ -180,7 +188,9 @@ func (grid *Grid) getNextCell(c Cell) Cell {
 
 }
 
-//"newsolver"
+// This Exorted function is how and external file will solve a puzzle
+// The parameters are a 2d int array and a boolean to indicate whether it is solving or genereating a puzzle
+// returns a solved 2d array
 func NewSolver(puzzle [9][9]int, gen bool) [9][9]int {
 
 	grid := new(Grid)
@@ -218,6 +228,8 @@ func NewSolver(puzzle [9][9]int, gen bool) [9][9]int {
 
 }
 
+// simple function to display the grid data structure to the console
+// will display as a Sudoku Game
 func (grid *Grid) printGrid() {
 
 	for i := 0; i < 9; i++ {
@@ -242,6 +254,9 @@ func (grid *Grid) printGrid() {
 	}
 
 }
+
+// Simple method to print a 2d int array to the console
+// Displays as a Sudoku puzzle
 func printBoard(board [9][9]int) {
 
 	for i := 0; i < 9; i++ {

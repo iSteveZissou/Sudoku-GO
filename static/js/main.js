@@ -7,6 +7,7 @@ var solvedArray;
 var current;
 var errorCell = [];
 
+// sets up initial game board
 function testFunction(x, y, z){
     idArray = x;
     valueArray = y;
@@ -51,6 +52,7 @@ function clearBoard(){
     
 }
 
+// function to get the current select input/cell
 function getCurrent(clicked_id){
 
     current = clicked_id;
@@ -68,6 +70,7 @@ function getCurrent(clicked_id){
    
 }
 
+// function for solving individual cells
 function solveCell(){
 
     if (current == null){
@@ -88,6 +91,7 @@ function solveCell(){
     
     
 }
+// resets the board to the same state as at start of game
 function resetBoard(){
     for (var i =0; i< idArray.length; i++){
           if (valueArray[i] != 0){
@@ -104,7 +108,8 @@ function resetBoard(){
         }
      }    
 }
-
+// will check if all cells are correct
+// alert will display the number of errors
 function hint(){
     var currValue =[];
     var completedArray =[];
@@ -118,8 +123,6 @@ function hint(){
             
         }
         
-        
-        
     }
 
     for (var i =0; i< idArray.length; i++){
@@ -131,7 +134,6 @@ function hint(){
             completedArray[i] = valueArray[i];
         }
         
-    
     }
     var count = 0;
     for (var i =0; i< idArray.length; i++){
@@ -153,6 +155,5 @@ function hint(){
     }
     
 
-      
 
 }
