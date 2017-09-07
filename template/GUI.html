@@ -1,129 +1,122 @@
 <!DOCTYPE html>
 <html>
+     
+     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+	<script src="https://use.fontawesome.com/fc96689c9e.js"></script>
+       <head>    
 
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
-<script src="https://use.fontawesome.com/fc96689c9e.js"></script>
-
-<head>
-
-    <link rel="stylesheet" href="/static/css/main.css" />
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-    <title>Sudoku-Go</title>
-
-</head>
-
-
-<body>
+           <link rel='stylesheet' media='screen and (min-width: 401px) and (max-width: 1900px)' href='/static/css/main.css' />
+           <link rel="stylesheet" media="screen and (min-device-width: 1920px)" href="/static/css/other.css" /> 
+            <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />   
+            <title>Sudoku-Go</title>
+   
+        </head>
 
 
-    <div id="mySidenav" class="sidenav" align="left">
+        <body>
 
-        <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
-        <a href="/">Classic</a>
-        <a href="#">6x6</a>
-        <a href="#">4x4</a>
-        <a href="/killer/">Killer</a>
-    </div>
+    
 
-    <span style="font-size:20px;cursor:pointer" onclick="openNav()">&#9776; </span>
+                <div id="mySidenav" class="sidenav" align="left">
 
-    <script>
-        function openNav() {
-            document.getElementById("mySidenav").style.width = "250px";
-        }
+                    <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+                    <a href="/">Classic</a>
+                    <a href="#">6x6</a>
+                    <a href="#">4x4</a>
+                    <a href="/killer/">Killer</a>
+                    </div>
 
-        function closeNav() {
-            document.getElementById("mySidenav").style.width = "0";
-        }
-    </script>
+                    <span style="font-size:20px;cursor:pointer" onclick="openNav()">&#9776; </span>
 
+                    <script>
+                    function openNav() {
+                        document.getElementById("mySidenav").style.width = "250px";
+                    }
+                    function closeNav() {
+                        document.getElementById("mySidenav").style.width = "0";
+                    }
+                    </script>
 
-    <div class="heading" align="center"><img src="/static/images/SO_DO_KUGO_FUJI.png" /></div>
-    <div id="container">
-
-
-
-        <div id="center" class="column">
-            <table>
-                <caption></caption>
-                <colgroup>
-                    <col>
-                    <col>
-                    <col>
-                    <colgroup>
-                        <col>
-                        <col>
-                        <col>
-                        <colgroup>
-                            <col>
-                            <col>
-                            <col>
-                            <tbody>
-
-                                {{range .Sudokus}} {{if .Done}}
-                                <tbody>
-                                    {{end}}
-                                    <tr>
-                                        {{range .Value}} {{if (eq . 0)}}
-
-                                        <td> <input maxlength="1" /> {{else}}
-                                            <td> <input type="input1" maxlength="1" disabled/> {{end}} {{end}} {{end}}
-            </table>
-        </div>
-
-    </div>
-    <!--<div id="left" class="column">
-                       <button class="button button1">test</button></br>
-                       <button class="button button1">test</button></br>
-                       <button class="button button1">test</button></br>
-                       <button class="button button1">test</button></br>
-                       <button class="button button1">test</button></br>
-                       
                     
-                    </div>-->
-    <div id="right" class="column">
-        <!--<button class="button button1" >New Game</button></br>
+                     <div class="heading" align="center"><img src="/static/images/SO_DO_KUGO_FUJI.png" /></div>
+                     <div id="container">
+
+
+
+                <div id="center" class="column">
+                    <table>
+                    <caption></caption>
+                    <colgroup><col><col><col>
+                    <colgroup><col><col><col>
+                    <colgroup><col><col><col>
+                        <tbody>
+
+                        {{range .Sudokus}}
+                        
+                            {{if .Done}}
+                                <tbody>
+                            {{end}}
+                            <tr>
+                            {{range .Value}}
+                            
+                                {{if (eq . 0)}}
+
+                       <td>  <input  maxlength="1" />  
+                                {{else}}
+                                     <td> <input type="input1" maxlength="1"  disabled/> 
+
+                        
+                        {{end}}
+                        {{end}}
+                        {{end}}
+                        </table>
+                </div>
+
+                </div>
+                   
+                    <div id="right" class="column">
+                        <!--<button class="button button1" >New Game</button></br>
                         <button class="button button1">Solve</button></br>
                        <button class="button button1">Save</button></br>
                        <button class="button button1">Load</button></br>
                        <button class="button button1">Exit</button></br>-->
-        <select name="diff">
+                       <select name="diff">
                             <option value="Easy">Easy</option>
                             <option value="Medium">Medium</option>
                             <option value="Hard">Hard</option>
                             </select>
-        <!--<p><a href="/game/">NewGame</a></p>
+                       <!--<p><a href="/game/">NewGame</a></p>
                        <p><a href="">Solve</a></p>
                        <p><a href="">Save</a></p>
                        <p><a href="">Load</a></p>
                        <p><a href="/">Clear</a></p>-->
 
-        <a href="/game/"><button>NewGame</button></a>
-        <button onclick="">Solve</button>
-        <button onclick="">Solve Cell</button>
-        <button onclick="">Reset</button>
-        <button onclick="">How to Play</button>
+                       <a href="/game/"><button>NewGame</button></a>
+                        <button onclick="">Solve</button>
+                        <button onclick="">Solve Cell</button>
+                        <button onclick="">Reset</button>
+                        <button onclick="">How to Play</button>
+                        
+                      
+
+                    </div>
+
+            </div>
+
+           
+            
+
+             <div id="footer"> About Contact Help
+
+                 <!-- Add icon library -->
 
 
+                <!-- Add font awesome icons -->
+                <a href="#" class="fa fa-facebook"></a>
+                <a href="#" class="fa fa-twitter"></a>
+            </div>
 
-    </div>
-
-    </div>
-
-
-
-
-    <div id="footer"> About Contact Help
-
-        <!-- Add icon library -->
-
-
-        <!-- Add font awesome icons -->
-        <a href="#" class="fa fa-facebook"></a>
-        <a href="#" class="fa fa-twitter"></a>
-    </div>
-
-</body>
-
-</html>
+            </body>
+        
+</html> 
