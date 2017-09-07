@@ -30,52 +30,11 @@ var Solved bool
 var SolutionCount int
 var possibilities []int
 
+// function found online to track the time of a comptutation
 func timeTrack(start time.Time, name string) {
 	elapsed := time.Since(start)
 	log.Printf("%s took %s", name, elapsed)
 }
-
-// func (grid *Grid) isValid(c Cell, v int) bool {
-
-// 	col := c.col
-// 	row := c.row
-
-// 	//check row
-// 	for i := 0; i < 9; i++ {
-// 		if grid.cells[row][i].value == v {
-// 			// fmt.Println("found in row")
-// 			return false
-// 		}
-// 	}
-
-// 	//check column
-// 	for i := 0; i < 9; i++ {
-// 		if grid.cells[i][col].value == v {
-
-// 			// fmt.Println("already here!")
-// 			return false
-// 		}
-
-// 	}
-// 	var nrow = c.row
-// 	var ncol = c.col
-
-// 	//check grid // redo this!!!!
-// 	var x1 = 3 * (nrow / 3)
-// 	var y1 = 3 * (ncol / 3)
-// 	var x2 = x1 + 2
-// 	var y2 = y1 + 2
-
-// 	for i := x1; i <= x2; i++ {
-// 		for j := y1; j <= y2; j++ {
-// 			if grid.cells[i][j].value == v {
-// 				// fmt.Println("found in grid")
-// 				return false
-// 			}
-// 		}
-// 	}
-// 	return true
-// }
 
 func (grid *Grid) getCandidates(c Cell) []int {
 	possibilities := make([]int, 0)
@@ -250,7 +209,6 @@ func NewSolver(puzzle [9][9]int, gen bool) [9][9]int {
 			grid.cells[i][j].value = puzzle[i][j]
 			grid.cells[i][j].row = i
 			grid.cells[i][j].col = j
-
 		}
 	}
 
@@ -263,10 +221,7 @@ func NewSolver(puzzle [9][9]int, gen bool) [9][9]int {
 
 			}
 		}
-		// fmt.Println("here is the total solving time ", countSolved)
-		// fmt.Println("FUCKSAKE", b)
-		// SolutionCount = 0
-		// grid.printGrid()
+
 		return b
 
 	}
@@ -275,6 +230,7 @@ func NewSolver(puzzle [9][9]int, gen bool) [9][9]int {
 
 }
 
+// Used to display the Sudoku puzzle Grid to the console
 func (grid *Grid) printGrid() {
 
 	for i := 0; i < 9; i++ {
@@ -299,6 +255,8 @@ func (grid *Grid) printGrid() {
 	}
 
 }
+
+// Used to display a 2d int array as a Sudoku puzzle on the console
 func printBoard(board [9][9]int) {
 
 	for i := 0; i < 9; i++ {

@@ -38,6 +38,7 @@ func GetPuzzle(i string) [9][9]int {
 }
 
 // get new puzzle
+// returns an empty 2d int array
 func GetEmptyPuzzle() [9][9]int {
 
 	var b [9][9]int
@@ -54,6 +55,9 @@ func GetEmptyPuzzle() [9][9]int {
 	return b
 }
 
+// This function gets the start of a puzzle by first randomly filling the first 3x3 mini-grid
+// The first row will then be filled with the remaining numbers at random
+// A 2d int array will be returned
 func GetNewStart() [9][9]int {
 
 	var b [9][9]int
@@ -68,9 +72,8 @@ func GetNewStart() [9][9]int {
 	b[8] = [9]int{0, 0, 0, 0, 0, 0, 0, 0, 0}
 
 	var count = 0
-	//
 
-	//found on go by example
+	//found on go by example https://gobyexample.com/
 	s1 := rand.NewSource(time.Now().UnixNano())
 	r1 := rand.New(s1)
 
@@ -80,9 +83,7 @@ func GetNewStart() [9][9]int {
 	for i, _ := range list {
 		list[i]++
 	}
-
 	var gridOne [3][3]int
-
 	for i := 0; i < 3; i++ {
 		for j := 0; j < 3; j++ {
 
@@ -98,16 +99,13 @@ func GetNewStart() [9][9]int {
 		for j := 0; j < 3; j++ {
 
 			b[i][j] = gridOne[i][j]
-
 		}
-
 	}
 
 	for j := 3; j < 9; j++ {
 
 		b[0][j] = testGrid[j-3]
-		// b[1][j] = gridTwo[j-3]
-		// b[2][j] = gridThree[j-3]
+
 	}
 
 	return b
@@ -155,15 +153,6 @@ func shuffleRow() {
 func removeCellsEasy(board [9][9]int) [9][9]int {
 
 	//generate 25 random numbers between one and nine for row index
-	// s1 := rand.NewSource(time.Now().UnixNano())
-	// r1 := rand.New(s1)
-
-	// var test = r1.Intn(9 - 1 ) + 1
-
-	//generate 25 randoms for column index
-
-	// b := []int{random(0, 9), random(0, 9)}
-	// fmt.Print(b)
 	var N = 50
 
 	var s [50][2]int
@@ -174,8 +163,6 @@ func removeCellsEasy(board [9][9]int) [9][9]int {
 		// rand.Seed(time.Now().Unix())
 		newCell := [2]int{Random(0, 9), Random(0, 9)}
 		for _, h := range s {
-			// fmt.Print(newCell)
-			// fmt.Print(h)
 
 			if h == newCell {
 				i = i - 1
@@ -184,11 +171,6 @@ func removeCellsEasy(board [9][9]int) [9][9]int {
 				break
 
 			}
-			// for _, cell := range h {
-
-			// 	fmt.Print(h, " here")
-			// 	fmt.Print(cell)
-			// }
 
 		}
 		// s = append(s, b)
@@ -204,7 +186,8 @@ func removeCellsEasy(board [9][9]int) [9][9]int {
 
 }
 
-//go cookbook
+// Random function found on Go Cookbook
+// Will return a ranom int between an minimum and maximum range
 func Random(min, max int) int {
 
 	return rand.Intn(max-min) + min

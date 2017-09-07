@@ -81,19 +81,6 @@ func Test_getShuffledRows(t *testing.T) {
 	}
 }
 
-// func Test_shuffleRow(t *testing.T) {
-// 	tests := []struct {
-// 		name string
-// 	}{
-// 	// TODO: Add test cases.
-// 	}
-// 	for range tests {
-// 		t.Run(tt.name, func(t *testing.T) {
-// 			shuffleRow()
-// 		})
-// 	}
-// }
-
 func Test_removeCellsEasy(t *testing.T) {
 	type args struct {
 		board [9][9]int
