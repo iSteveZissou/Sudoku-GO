@@ -1,178 +1,184 @@
 <!DOCTYPE html>
 <html>
-     
-     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-     <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet"> 
-     <script type="text/javascript" src="/static/js/main.js"></script>
-     <link rel="shortcut icon" href="/static/favicons/favicon.ico">
-     
-       <head>    
 
-            <link rel='stylesheet' media='screen and (min-width: 401px) and (max-width: 1900px)' href='/static/css/main.css' />
-           <link rel="stylesheet" media="screen and (min-device-width: 1920px)" href="/static/css/other.css" />
-            <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />   
-            <title>Sudoku-Go</title>
-        </head>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
+<script type="text/javascript" src="/static/js/main.js"></script>
+<link rel="shortcut icon" href="/static/favicons/favicon.ico">
 
-         <body onload="addArrays()"> 
-            <!-- <body> -->
+<head>
 
-        <div id="mySidenav" class="sidenav" align="left">
+    <link rel='stylesheet' media='screen and (min-width: 401px) and (max-width: 1900px)' href='/static/css/main.css' />
+    <link rel="stylesheet" media="screen and (min-device-width: 1920px)" href="/static/css/other.css" />
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <title>Sudoku-Go</title>
+</head>
 
-                    <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
-                    <a href="/game/">Classic</a>
-                    <a href="#">6x6</a>
-                    <a href="#">4x4</a>
-                    <a href="/killer/">Killer</a>
-                    </div>
+<body onload="addArrays()">
+    <!-- <body> -->
 
-                    <span style="font-size:20px;cursor:pointer" onclick="openNav()">&#9776; </span>
+    <div id="mySidenav" class="sidenav" align="left">
 
-                    <script>
-                    function openNav() {
-                        document.getElementById("mySidenav").style.width = "250px";
-                    }
+        <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+        <a href="/game/">Classic</a>
+        <a href="#">6x6</a>
+        <a href="#">4x4</a>
+        <a href="/killer/">Killer</a>
+    </div>
 
-                    function closeNav() {
-                        document.getElementById("mySidenav").style.width = "0";
-                    }
-                    </script>
+    <span style="font-size:20px;cursor:pointer" onclick="openNav()">&#9776; </span>
 
-                    
-                     <div class="heading" align="center"><img src="/static/images/SO_DO_KUGO_KILLER.png" /></div>
-                     
-        
-            <div id="container">
+    <script>
+        function openNav() {
+            document.getElementById("mySidenav").style.width = "250px";
+        }
+
+        function closeNav() {
+            document.getElementById("mySidenav").style.width = "0";
+        }
+    </script>
 
 
-                <div id="center" class="column">
-                    <table>
-                    <caption></caption>
-                    <colgroup><col><col><col>
-                    <colgroup><col><col><col>
-                    <colgroup><col><col><col>
-                        <tbody>
+    <div class="heading" align="center"><img src="/static/images/SO_DO_KUGO_KILLER.png" /></div>
 
-                        {{range .Sudokus}}
-                            {{if .Done}}
+
+    <div id="container">
+
+
+        <div id="center" class="column">
+            <table>
+                <caption></caption>
+                <colgroup>
+                    <col>
+                    <col>
+                    <col>
+                    <colgroup>
+                        <col>
+                        <col>
+                        <col>
+                        <colgroup>
+                            <col>
+                            <col>
+                            <col>
+                            <tbody>
+
+                                {{range .Sudokus}} {{if .Done}}
                                 <tbody>
-                            {{end}}
-                            <tr>
-                            {{range .ID}}
-                            <td >  <input id ="{{.}}" type="inputkiller" maxlength="1" onclick="getCurrent(this.id)"/> 
-                            {{end}}
-                        {{end}}
-                        </table>
+                                    {{end}}
+                                    <tr>
+                                        {{range .ID}}
+                                        <td> <input id="{{.}}" type="inputkiller" maxlength="1" onclick="getCurrent(this.id)"
+                                            /> {{end}} {{end}}
+            </table>
 
-                    
 
-                </div>
-            </div>
 
-                    <div id="right" class="column">
-                        <button onclick="test()">NewGame</button>
-                        <button onclick="solve()">Solve</button>
-                        <button onclick="solveCell()">Solve Cell</button>
-                        <button onclick="resetBoard()">Reset</button>
-                        <button onclick="clearBoard()">Clear</button>
-                        <button onclick="hint()">Check</button>
-                        <!-- <a href="/"><button>Home</button></a> -->
-                        
-                        <button id="myBtn">How to Play</button>
+        </div>
+    </div>
 
-                            <!-- The Modal -->
-                            <div id="myModal" class="modal">
+    <div id="right" class="column">
+        <button onclick="test()">NewGame</button>
+        <button onclick="solve()">Solve</button>
+        <button onclick="solveCell()">Solve Cell</button>
+        <button onclick="resetBoard()">Reset</button>
+        <button onclick="clearBoard()">Clear</button>
+        <button onclick="hint()">Check</button>
+        <!-- <a href="/"><button>Home</button></a> -->
 
-                            <!-- Modal content -->
-                            <div class="modal-content">
-                                <span class="close">&times;</span>
-                                <h2>How To Play Killer Sudoku</h2>
-                                <img src="/static/images/kill_jun19_2016.jpg" alt="killer" style="width:300px;height:300px;">
-                                <p>Some text in the Modal..</p>
-                                
-                            </div>
+        <button id="myBtn">How to Play</button>
 
-                            
+        <!-- The Modal -->
+        <div id="myModal" class="modal">
 
-                            </div>
-                        
-                     
-      
-                    </div>
+            <!-- Modal content -->
+            <div class="modal-content">
+                <span class="close">&times;</span>
+                <h2>How To Play Killer Sudoku</h2>
+                <img src="/static/images/kill_jun19_2016.jpg" alt="killer" style="width:300px;height:300px;">
+                <p>Some text in the Modal..</p>
 
             </div>
 
-            <div>
-            </div>
 
-              <div id="footer"> About Contact Help
-                <a href="#" class="fa fa-facebook"></a>
-                <a href="#" class="fa fa-twitter"></a>
 
-            </div> 
-            <!--The following script will retrieve all the sudoku value and copy them to
+        </div>
+
+
+
+    </div>
+
+    </div>
+
+    <div>
+    </div>
+
+    <div id="footer"> About Contact Help
+        <a href="#" class="fa fa-facebook"></a>
+        <a href="#" class="fa fa-twitter"></a>
+
+    </div>
+    <!--The following script will retrieve all the sudoku value and copy them to
             javascript arrays.-->
 
-            <script type="text/javascript">
+    <script type="text/javascript">
+                    var arr = [
+                        {{range .Sudokus }}
+                    { { range.ID } }
 
-                        var arr = [
-                            {{range .Sudokus}}
-                                {{range .ID}}
-
-                                    {{.}},
-                                    {{end}}
-                                {{end}}
+                    { {.} },
+                    { { end } }
+                    { { end } }
                         ];
 
-                        var game =[
-                            {{range .Sudokus}}
-                                {{range .Value}}
+                    var game = [
+                        {{range .Sudokus }}
+                    { { range.Value } }
 
-                                    {{.}},
-                                    {{end}}
-                                {{end}}
+                    { {.} },
+                    { { end } }
+                    { { end } }
 
-                        ];  
-                        var solved =[
-                            {{range .Sudokus}}
-                                {{range .Solution}}
-                                    {{.}},
-                                    {{end}}
-                                {{end}}
-                        ];  
-                        
+                        ];
+                    var solved = [
+                        {{range .Sudokus }}
+                    { { range.Solution } }
+                    { {.} },
+                    { { end } }
+                    { { end } }
+                        ];
+
                         // function addArrays(){
                         //     testFunction(arr, game, solved);
-                        // }      
-                     </script>
-                     <script>
-                            // Get the modal
-                            var modal = document.getElementById('myModal');
+                        // }
+    </script>
+    <script>
+                        // Get the modal
+                        var modal = document.getElementById('myModal');
 
-                            // Get the button that opens the modal
-                            var btn = document.getElementById("myBtn");
+                        // Get the button that opens the modal
+                        var btn = document.getElementById("myBtn");
 
-                            // Get the <span> element that closes the modal
-                            var span = document.getElementsByClassName("close")[0];
+                        // Get the <span> element that closes the modal
+                        var span = document.getElementsByClassName("close")[0];
 
-                            // When the user clicks the button, open the modal 
-                            btn.onclick = function() {
-                                modal.style.display = "block";
-                            }
+                        // When the user clicks the button, open the modal 
+                        btn.onclick = function () {
+                            modal.style.display = "block";
+                        }
 
-                            // When the user clicks on <span> (x), close the modal
-                            span.onclick = function() {
+                        // When the user clicks on <span> (x), close the modal
+                        span.onclick = function () {
+                            modal.style.display = "none";
+                        }
+
+                        // When the user clicks anywhere outside of the modal, close it
+                        window.onclick = function (event) {
+                            if (event.target == modal) {
                                 modal.style.display = "none";
                             }
+                        }
+    </script>
 
-                            // When the user clicks anywhere outside of the modal, close it
-                            window.onclick = function(event) {
-                                if (event.target == modal) {
-                                    modal.style.display = "none";
-                                }
-                            }
-                            </script>
+</body>
 
-        </body>
-        
-    </html> 
+</html>
