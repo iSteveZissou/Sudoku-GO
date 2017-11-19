@@ -48,6 +48,7 @@ func main() {
 	http.HandleFunc("/game/", gameHandler)
 	http.HandleFunc("/killer/", killerHandler)
 	http.ListenAndServe(":"+os.Getenv("PORT"), nil)
+	// http.ListenAndServe(":8080", nil)
 }
 
 // Simple funtion to serve the favicon
